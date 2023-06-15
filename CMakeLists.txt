@@ -28,16 +28,24 @@ else()
     message(STATUS "Using vulkan lib at: ${Vulkan_LIBRARIES}")
 endif()
 
+set(PROJECT_HEADERS
+        Vulkan/vulkaninstance.h
+        Vulkan/vulkanapplication.h
+        mainwindow.h
+)
+
 set(PROJECT_SOURCES
+        Vulkan/vulkaninstance.cpp
+        Vulkan/vulkanapplication.cpp
         main.cpp
         mainwindow.cpp
-        mainwindow.h
         mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Cube_Qt_Vulkan
         MANUAL_FINALIZATION
+        ${PROJECT_HEADERS}
         ${PROJECT_SOURCES}
     )
 endif()
@@ -46,7 +54,7 @@ if (WIN32)
     message(STATUS "CREATING BUILD FOR WINDOWS")
     target_include_directories(${PROJECT_NAME} PUBLIC ${Vulkan_INCLUDE_DIRS})
     target_link_directories(${PROJECT_NAME} PUBLIC ${Vulkan_LIBRARIES})
-    target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PUBLIC ${Vulkan_LIBRARIES})
 elseif(UNIX)
     message(STATUS "CREATING BUILD FOR UNIX")
     target_link_libraries(${PROJECT_NAME}
