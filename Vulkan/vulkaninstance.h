@@ -11,6 +11,7 @@ namespace vk {
     class VulkanInstance {
     public:
         VulkanInstance();
+        VulkanInstance(const VulkanInstance&) = delete;
         virtual ~VulkanInstance();
 
         QVector<VkExtensionProperties> supportedExtensions() const;
@@ -24,6 +25,8 @@ namespace vk {
                 const QVector<const QByteArray>& extensionRequired,
                 const QVector<const QByteArray>& validationLayersRequired);
         void Destroy();
+
+        VulkanInstance& operator=(const VulkanInstance&) = delete;
     protected:
     private:
         VkInstance vk_instance;

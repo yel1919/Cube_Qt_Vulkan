@@ -6,8 +6,20 @@ VulkanInstance::VulkanInstance()
       vk_instance(VK_NULL_HANDLE)
 {}
 
+VulkanInstance::VulkanInstance(VulkanInstance&& instance) {
+    vk_instance = instance.vk_instance;
+    instance.vk_instance = VK_NULL_HANDLE;
+}
+
 VulkanInstance::~VulkanInstance() {
     Destroy();
+}
+
+VulkanInstance& VulkanInstance::operator=(VulkanInstance&& instance) {
+    if (this != &instance) {
+        std::swap(vk_instance, instance.vk_instance);
+    }
+    return *this;
 }
 
 /**Get supported extension properties
@@ -106,7 +118,10 @@ bool VulkanInstance::CheckInstanceLayersSupported(const QVector<const QByteArray
 }
 
 /**Create vulkan instance
-*@params
+*@params:
+*engineName
+*extensionRequired - vector of requested extension names
+*validationLayersRequired - vector of requested validation layer names
 *@return true or false
 */
 bool VulkanInstance::Create(
