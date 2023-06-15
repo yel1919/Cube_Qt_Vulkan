@@ -12,6 +12,7 @@ namespace vk {
     public:
         VulkanInstance();
         VulkanInstance(const VulkanInstance&) = delete;
+        VulkanInstance(VulkanInstance&& instance);
         virtual ~VulkanInstance();
 
         QVector<VkExtensionProperties> supportedExtensions() const;
@@ -27,6 +28,7 @@ namespace vk {
         void Destroy();
 
         VulkanInstance& operator=(const VulkanInstance&) = delete;
+        VulkanInstance& operator=(VulkanInstance&& instance);
     protected:
     private:
         VkInstance vk_instance;
