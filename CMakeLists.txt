@@ -29,14 +29,15 @@ else()
 endif()
 
 set(PROJECT_HEADERS
+        Vulkan/ivulkaninstance.h
+        Vulkan/adapterreader.h
         Vulkan/vulkaninstance.h
-        Vulkan/vulkanapplication.h
         mainwindow.h
 )
 
 set(PROJECT_SOURCES
+        Vulkan/adapterreader.cpp
         Vulkan/vulkaninstance.cpp
-        Vulkan/vulkanapplication.cpp
         main.cpp
         mainwindow.cpp
         mainwindow.ui

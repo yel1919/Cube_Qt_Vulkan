@@ -22,6 +22,10 @@ VulkanInstance& VulkanInstance::operator=(VulkanInstance&& instance) {
     return *this;
 }
 
+VulkanInstance::operator const VkInstance() const {
+    return vk_instance;
+}
+
 /**Get supported extension properties
 *@params
 *@return vector supported extension properties

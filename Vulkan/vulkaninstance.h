@@ -2,18 +2,17 @@
 #define VULKANINSTANCE_H
 
 #include <QApplication>
-#include <QList>
-#include <QVector>
-#include <vulkan/vulkan.h>
-#include <QVulkanInstance>
+#include "adapterreader.h"
 
 namespace vk {
-    class VulkanInstance {
+    class VulkanInstance : public IVulkanInstance {
     public:
         VulkanInstance();
         VulkanInstance(const VulkanInstance&) = delete;
         VulkanInstance(VulkanInstance&& instance);
         virtual ~VulkanInstance();
+
+        explicit operator const VkInstance() const override;
 
         QVector<VkExtensionProperties> supportedExtensions() const;
         QVector<VkLayerProperties> supportedLayers() const;
