@@ -1,5 +1,5 @@
 #include "vulkaninstance.h"
-using vk::VulkanInstance;
+using namespace vk;
 
 VulkanInstance::VulkanInstance()
     :
@@ -172,4 +172,10 @@ bool VulkanInstance::Create(
 */
 void VulkanInstance::Destroy() {
     vkDestroyInstance(vk_instance, nullptr);
+}
+
+const QVector<AdapterData> VulkanInstance::GetAdapters() const {
+    QVector<AdapterData> data;
+    AdapterReader::read(*this, &data);
+    return data;
 }

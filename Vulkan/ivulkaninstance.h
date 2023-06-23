@@ -8,6 +8,7 @@
 namespace vk {
     class IVulkanInstance {
     public:
+        virtual ~IVulkanInstance() {}
         virtual explicit operator const VkInstance() const = 0;
     };
 }

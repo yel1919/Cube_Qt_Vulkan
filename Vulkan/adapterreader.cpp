@@ -67,12 +67,12 @@ void AdapterReader::read(const IVulkanInstance& vk_inst, QVector<AdapterData>* d
     uint32_t deviceCount = 0;
     if(vkEnumeratePhysicalDevices((VkInstance)vk_inst, &deviceCount, nullptr) != VK_SUCCESS) return;
 
-    data->resize(deviceCount, (AdapterData)VK_NULL_HANDLE);
+    data->reserve(deviceCount);
 
     QVector<VkPhysicalDevice> devices(deviceCount);
     if(vkEnumeratePhysicalDevices((VkInstance)vk_inst, &deviceCount, devices.data()) != VK_SUCCESS) return;
 
     for (int index = 0; index < deviceCount; ++index) {
-        (*data)[index] = std::move((AdapterData)devices[index]);
+        data->emplace_back((AdapterData)(devices[index]));
     }
 }

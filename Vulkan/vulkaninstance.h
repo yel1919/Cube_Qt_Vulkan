@@ -12,6 +12,9 @@ namespace vk {
         VulkanInstance(VulkanInstance&& instance);
         virtual ~VulkanInstance();
 
+        VulkanInstance& operator=(const VulkanInstance&) = delete;
+        VulkanInstance& operator=(VulkanInstance&& instance);
+
         explicit operator const VkInstance() const override;
 
         QVector<VkExtensionProperties> supportedExtensions() const;
@@ -26,8 +29,7 @@ namespace vk {
                 const QVector<const QByteArray>& validationLayersRequired);
         void Destroy();
 
-        VulkanInstance& operator=(const VulkanInstance&) = delete;
-        VulkanInstance& operator=(VulkanInstance&& instance);
+        const QVector<AdapterData> GetAdapters() const;
     protected:
     private:
         VkInstance vk_instance;
